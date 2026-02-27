@@ -1,0 +1,35 @@
+replicaCount: 1
+
+image:
+  repository: airgap
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: airgap.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+toleraciones: []
+
+affinity: {}
