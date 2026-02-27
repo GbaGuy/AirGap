@@ -1,9 +1,11 @@
 replicaCount: 1
 
 image:
-  repository: airgap
+  repository: busybox
   pullPolicy: IfNotPresent
   tag: "latest"
+  command: ["sleep"]
+  args: ["infinity"]
 
 service:
   type: ClusterIP

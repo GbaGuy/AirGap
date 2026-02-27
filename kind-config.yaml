@@ -1,0 +1,22 @@
+# Kind cluster configuration for WSL2
+# Maps host ports 8080 and 443 into the kind node so that
+# the nginx ingress controller (with hostPort enabled) is
+# reachable directly from the WSL2 host (and Windows browser
+# via localhost when WSL2 port-forwarding is active).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 8080
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 443
+        protocol: TCP
